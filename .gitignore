@@ -1,0 +1,14 @@
+*.cache/
+*.hw/
+*.ip_user_files/
+*.sim/
+*.runs/
+.Xil/
+*.jou
+*.log
+*.pb
+*.wdb
+*.str
+Thumbs.db
+*.zip
+~$*
