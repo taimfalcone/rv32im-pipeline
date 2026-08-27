@@ -1,9 +1,8 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Module Name: InstMem
-// Author: Mahmoud Elfar
-// Date: 5/27/2026
-// Project: EECS 31L - Spring 2026
+// Author: Tai Falcone
+// Date: 5/20/2026
 // Revision 0.01 - File Created
 // Revision 0.02 - Inserted NOP at address 0x00
 // Additional Comments:
