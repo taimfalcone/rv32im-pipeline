@@ -1,13 +1,5 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Module Name: InstMem
-// Author: Tai Falcone
-// Date: 5/20/2026
-// Revision 0.01 - File Created
-// Revision 0.02 - Inserted NOP at address 0x00
-// Additional Comments:
-//   First instruction must always be NOP for a synchronous reset to work
-//////////////////////////////////////////////////////////////////////////////////
+
 
 module InstMem(
   input [7:0] addr,
