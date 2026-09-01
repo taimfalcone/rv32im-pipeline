@@ -16,15 +16,8 @@
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
 //////////////////////////////////////////////////////////////////////////////////
 
-
-// Project: EECS 31L - Spring 2026 - Lab & Assignment 5
-// Module: tb_processor
-// Description: Testbench for the processor module
-// Author: M. Elfar
-////////////////////////////////////////////////////////////////////////////////
 module tb_processor();
     reg clk, rst;
     wire [31:0] tb_Result;
