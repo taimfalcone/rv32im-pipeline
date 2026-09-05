@@ -6,7 +6,7 @@ I built this to extend a single-cycle RV32I processor I wrote in EECS 31L at UC 
 
 ## Status
 
-- **v1.0** Single-cycle RV32I baseline (tagged 'v1.0-single-cycle)
+- **v1.0** Single-cycle RV32I baseline (tagged 'v1.0-single-cycle')
 - **v2.0** 5-stage pipeline with forwarding, hazard detection, and branch flush
 - **v2.1 (current)** Vivado synthesis, timing closure at 150 MHz, CPI measurement
 - **v3.0 (in progress)** M extension: MUL, MULH, MULHU, MULHSU
