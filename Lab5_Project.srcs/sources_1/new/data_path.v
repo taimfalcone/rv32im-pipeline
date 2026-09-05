@@ -254,6 +254,7 @@ module data_path #(
     //                       MEM STAGE
     wire [DATA_W-1:0] dm_read_data_mem;
     data_mem data_memory (
+        .clk(clk),
         .MemRead(ex_mem_memread), .MemWrite(ex_mem_memwrite),
         .addr(ex_mem_alu[DM_ADDRESS-1:0]),
         .write_data(ex_mem_rs2),

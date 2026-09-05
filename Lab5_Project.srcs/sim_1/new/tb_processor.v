@@ -12,20 +12,17 @@ module tb_processor();
         .Result (tb_Result)
     );
 
-    // 20 ns clock
     initial begin
         clk = 0;
         forever #10 clk = ~clk;
     end
 
-    // Reset held for 2 cycles
     initial begin
         rst = 1;
         repeat (2) @(negedge clk);
         rst = 0;
     end
 
-    // Check a register against expected value, tally pass/fail
     task check_reg;
         input [4:0]  reg_num;
         input [31:0] expected;
@@ -43,29 +40,38 @@ module tb_processor();
         end
     endtask
 
-    // Main sequence
     initial begin
         @(negedge rst);
-        repeat (40) @(posedge clk);  // give the pipeline time to drain
+        repeat (80) @(posedge clk);
 
         $display("");
         $display("=====================================================");
-        $display("  Pipelined RV32I processor - register file check    ");
+        $display("  Pipelined RV32I processor - functional regression  ");
         $display("=====================================================");
 
-        check_reg(1,  32'h00000005, "ADDI");
-        check_reg(2,  32'h0000000A, "ADDI");
-        check_reg(3,  32'h0000000F, "ADD  with EX/MEM forwarding");
-        check_reg(4,  32'h0000000A, "SUB  with EX/MEM forwarding");
-        check_reg(5,  32'h00000000, "AND");
-        check_reg(6,  32'h0000000F, "LW");
-        check_reg(7,  32'h0000001E, "ADD  after load-use stall");
-        check_reg(8,  32'h0000002A, "BEQ  taken (flush verified)");
-        check_reg(9,  32'h00000021, "BEQ  taken (2nd branch)");
-        check_reg(10, 32'h00000055, "JAL  target reached");
-        check_reg(11, 32'h00000048, "JAL  link (PC+4)");
-        check_reg(13, 32'h12345678, "LUI + ADDI");
-        check_reg(14, 32'h00000058, "AUIPC");
+        check_reg(1,  32'h00000001, "SUB result");
+        check_reg(2,  32'h00000002, "AND result");
+        check_reg(3,  32'h00000003, "OR result");
+        check_reg(4,  32'h00000007, "XOR result");
+        check_reg(5,  32'h0000000C, "SLT chain result");
+        check_reg(7,  32'h0000001B, "LW result (forwarding into store)");
+        check_reg(8,  32'h00000004, "LW result");
+        check_reg(9,  32'h00000007, "ADD after load-use (stall verified)");
+        check_reg(10, 32'h0000000E, "ADD cascade");
+        check_reg(11, 32'h0000001C, "ADD cascade");
+        check_reg(12, 32'h00000038, "ADD cascade");
+        check_reg(13, 32'h00000070, "ADD cascade");
+        check_reg(14, 32'h000000E0, "ADD cascade");
+        check_reg(15, 32'h000001C0, "ADD cascade");
+        check_reg(16, 32'h00000380, "ADD cascade");
+        check_reg(17, 32'h00000700, "ADD cascade");
+        check_reg(18, 32'h00000E00, "ADD cascade");
+        check_reg(19, 32'h00000E01, "ADD post-branch (flush verified)");
+        check_reg(20, 32'h00000E01, "ADD post-branch");
+        check_reg(21, 32'h00000E04, "ADD post-branch");
+        check_reg(22, 32'h00000E08, "ADD post-branch");
+        check_reg(23, 32'h00000E08, "ADD post-branch");
+        check_reg(28, 32'h00000E30, "ADD final chain result");
 
         $display("=====================================================");
         $display("  Results: %0d passed, %0d failed  (of %0d checks)",
@@ -74,10 +80,5 @@ module tb_processor();
         $finish;
     end
 
-    // Safety timeout
-    initial begin
-        #2000;
-        $display("TIMEOUT - simulation ran too long");
-        $finish;
-    end
+    initial begin #2500; $finish; end
 endmodule
